@@ -146,24 +146,29 @@ router.get('/:id/orders', async (request, response) => {
 //SHOW REVENUE by filter Dates
 router.get('/:id/revenue', async (request, response) => {
     //?start_date=2022-09-08
-
+    //?end_date=2022-09-08
+    let startDate = null;
+    try {
+        startDate = request.query.start_date;
+    } catch (error) {
+        console.log(error.message)
+    }
+    let endDate = new Date();
+    if (request.query.end_date != null) {
+        endDate = request.query.end_date;
+    }
     let revenueObj = await RestaurantModel.find({ _id: request.params.id }, { revenue: true })
         .populate("revenue", "date price")
         .populate("name", "name")
 
-    try {
-        let startDate = request.query.start_date;
+    if (startDate != null) {
         startDate = new Date(startDate).getTime();
-        if (startDate != null) {
-            revenueObj[0].revenue = revenueObj[0].revenue.filter((elem) => {
-                let currDate = new Date(elem.date).getTime();
-                return currDate >= startDate;
-            })
-        }
-    } catch (error) {
-        console.log(error.message)
+        endDate = new Date(endDate).getTime();
+        revenueObj[0].revenue = revenueObj[0].revenue.filter((elem) => {
+            let currDate = new Date(elem.date).getTime();
+            return (currDate >= startDate) && (currDate <= endDate);
+        })
     }
-
     response.status(200).json(revenueObj);
 });
 
