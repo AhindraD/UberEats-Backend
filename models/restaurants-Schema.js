@@ -12,6 +12,9 @@ const restaurantSchema = mongoose.Schema({
     address: {
         type: String,
     },
+    revenue: {
+        type: Number,
+    },
     dishes: [
         {
             type: mongoose.Schema.Types.ObjectId,
