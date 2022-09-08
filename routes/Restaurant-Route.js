@@ -130,16 +130,16 @@ router.get('/:id/orders', async (request, response) => {
     } catch (error) {
         console.log(error.message);
     }
-    let orders = await RestaurantModel.find({ _id: request.params.id }, { orders: true })
+    let ordersObj = await RestaurantModel.find({ _id: request.params.id }, { orders: true })
         .populate("orders", "ID price buyer orderedAt status")
         .populate("name","name")
 
-    // if (state != null) {
-    //     orders = orders.filter((elem) => {
-    //         return elem.status === state;
-    //     })
-    // }
-    response.status(200).json(orders);
+    if (state != null) {
+        ordersObj[0].orders = ordersObj[0].orders.filter((elem) => {
+            return elem.status === state;
+        })
+    }
+    response.status(200).json(ordersObj);
 });
 
 module.exports = router;
