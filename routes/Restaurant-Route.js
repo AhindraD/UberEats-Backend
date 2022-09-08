@@ -131,13 +131,14 @@ router.get('/:id/orders', async (request, response) => {
         console.log(error.message);
     }
     let orders = await RestaurantModel.find({ _id: request.params.id }, { orders: true })
-        .populate("orders", "ID price restaurant buyer orderedAt status")
+        .populate("orders", "ID price buyer orderedAt status")
+        .populate("name","name")
 
-    if (state != null) {
-        orders = orders.filter((elem) => {
-            return elem.status === state;
-        })
-    }
+    // if (state != null) {
+    //     orders = orders.filter((elem) => {
+    //         return elem.status === state;
+    //     })
+    // }
     response.status(200).json(orders);
 });
 

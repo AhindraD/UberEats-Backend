@@ -31,18 +31,19 @@ router.get('/:id', async (request, response) => {
 //place a order
 router.post('/add', async (request, response) => {
     const { buyerID, restaurantID, dishId, qnty } = request.body;
-    if (buyerID || restaurantID || dishId || qnty) {
+    if (!buyerID || !restaurantID || !dishId || !qnty) {
         return response.status(400).send('Input required!');
     }
 
-    let dishPrice = DishModel.find({ _id: dishId }, {
+    let dishPrice = await DishModel.find({ _id: dishId }, {
         price: true
     });
-    let price = Number(qnty) * Number(dishPrice);
+
+    let price = Number(qnty) * Number(dishPrice[0].price);
     //creating document/Category for entered details
     const newOrder = new OrderModel({
-        buyerID,
-        restaurantID,
+        buyer: buyerID,
+        restaurant: restaurantID,
         price,
     });
 
@@ -73,7 +74,7 @@ router.post('/add', async (request, response) => {
 //Update order status
 router.post('/:id/update', async (request, response) => {
     //console.log(request.params.id);
-    //?status=<pending/completedcancelled>
+    //?status=<pending/completed/cancelled>
     let state = null;
     try {
         state = request.query.status.toLowerCase();
@@ -82,7 +83,7 @@ router.post('/:id/update', async (request, response) => {
     }
     try {
         await OrderModel.updateOne({ _id: request.params.id }, { status: state });
-        response.status(202).send("Order marked " + state.toUpperCase() + "with ID: " + request.params.id);
+        response.status(202).send("Order marked " + state.toUpperCase() + " with ID: " + request.params.id);
     } catch (e) {
         response.status(501).send(e.message)
     }
