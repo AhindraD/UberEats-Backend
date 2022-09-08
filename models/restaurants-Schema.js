@@ -12,16 +12,18 @@ const restaurantSchema = mongoose.Schema({
     address: {
         type: String,
     },
-    revenue: {
-        type: Number,
-    },
+    revenue: [
+        {
+            type: Object,
+        }
+    ],
     dishes: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Dish",
         }
     ],
-    oders: [
+    orders: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Order",

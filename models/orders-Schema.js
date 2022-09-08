@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const orderSchema = mongoose.Schema({
     ID: {
         type: String,
+        default: `OrderID${Math.random().toString(36).substring(2, 13) }`,
         required: true,
     },
     desc: {

@@ -21,51 +21,40 @@ const storage = multer.diskStorage(
 
 const upload = multer({ storage: storage });
 
-//SHOW ALL Rests
+//SHOW ALL Restaurant
 router.get('/all', async (request, response) => {
-    const ads = await AdModel.find({})
+    const restaurants = await RestaurantModel.find({})
         .populate("dishes", "name")
         .populate("buyers", "name")
-        .populate("oders", "ID")
+        .populate("orders", "ID")
 
-    response.status(200).json(ads);
+    response.status(200).json(restaurants);
 });
 
 
-//CREATE a new Rest
-router.post('/new', upload.single('image'), async (request, response) => {
-    const { title, desc, price, seller, category } = request.body;
+//CREATE a new Restaurant
+router.post('/add', upload.single('image'), async (request, response) => {
+    const { name, cuisine, address } = request.body;
 
     // let uploadedFile = request.file.filename;
     // uploadedFile = 'uploads/' + uploadedFile;
     // let imageUrl = process.env.BASE_URL + uploadedFile;
     //console.log(process.env.BASE_URL);
-    console.log(imageUrl);
-    if (!title || !desc || !price || !seller || !category) {
+    //console.log(imageUrl);
+    if (!name) {
         return response.status(400).send('Input required!');
     }
     //creating document/Ads for entered details
-    const newAds = new AdModel({
-        title,
-        desc,
-        price,
-        seller,
-        category: category[1],
-        imageUrl,
+    const newRest = new RestaurantModel({
+        name,
+        cuisine,
+        address,
     });
 
     try {
-        //saving the doc/Ads to database collection
-        const saveAds = await newAds.save();
-
-        //addind the Ad-ID to the seller profile
-        await UserModel.updateOne({ _id: seller }, {
-            $push: {
-                "ads": saveAds.id
-            }
-        });
-
-        response.status(201).send("Ad created with ID: " + saveAds.id);
+        //saving the doc to database collection
+        const saveRest = await newRest.save();
+        response.status(201).send("Restaurant created with ID: " + saveRest.id);
 
     } catch (e) {
         response.status(501).send(e.message)
@@ -73,50 +62,83 @@ router.post('/new', upload.single('image'), async (request, response) => {
 });
 
 
-//Delete AD
+//Delete Restaurant
 router.delete('/delete/:id', async (request, response) => {
     //console.log(request.params.id);
     try {
-        await AdModel.deleteOne({ _id: request.params.id });
-        response.status(202).send("Ad DELETED with ID: " + request.params.id);
+        await RestaurantModel.deleteOne({ _id: request.params.id });
+        response.status(202).send("Restaurant DELETED with ID: " + request.params.id);
     } catch (e) {
         response.status(501).send(e.message)
     }
-
-
 })
 
+//SHOW a Restaurant
+router.get('/:id', async (request, response) => {
+    const restaurant = await RestaurantModel.find({ _id: request.params.id })
+        .populate("dishes", "name")
+        .populate("buyers", "name")
+        .populate("orders", "ID")
 
-//Interested Buyer Add
-router.post('/:adId/buyers/:buyerId', async (request, response) => {
-    //console.log(request.params.adId);
+    response.status(200).json(restaurant);
+});
+
+
+
+
+//Dishes Add
+router.post('/:id/add-dish', upload.single('image'), async (request, response) => {
+    const { name, desc, price } = request.body;
+    // let uploadedFile = request.file.filename;
+    // uploadedFile = 'uploads/' + uploadedFile;
+    // let imageUrl = process.env.BASE_URL + uploadedFile;
+    //console.log(process.env.BASE_URL);
+    //console.log(imageUrl);
+    if (!name || !price) {
+        return response.status(400).send('Input required!');
+    }
+    //creating documentfor entered details
+    const newDish = new DishModel({
+        name,
+        desc,
+        price,
+        restaurant: request.params.id,
+    });
     try {
-        await AdModel.updateOne({ _id: request.params.adId }, {
+        const saveDish = await newDish.save();
+        //response.status(201).send("Dish created with ID: " + saveDish.id);
+
+        await RestaurantModel.updateOne({ _id: request.params.id }, {
             $push: {
-                "interestedBuyers": request.params.buyerId
+                "dishes": saveDish.id,
             }
         });
 
-        response.status(202).send("Buyer queued with ID: " + request.params.buyerId);
+        response.status(202).send("Dish added with ID: " + saveDish.id);
     } catch (e) {
         response.status(501).send(e.message)
     }
 });
 
 
-//Sold / Closed Ad
-router.post('/:adId/sold/:buyerId', async (request, response) => {
-    //console.log(request.params.adId);
+//SHOW Orders by filter Restaurant
+router.get('/:id/orders', async (request, response) => {
+    //?status=pending
+    let state = null;
     try {
-        await AdModel.updateOne({ _id: request.params.adId }, {
-            "closedAt": Date.now(),
-            "buyer": request.params.buyerId
-        });
-
-        response.status(202).send("SOLD to Buyer with ID: " + request.params.buyerId);
-    } catch (e) {
-        response.status(501).send(e.message)
+        state = request.query.status;
+    } catch (error) {
+        console.log(error.message);
     }
-})
+    let orders = await RestaurantModel.find({ _id: request.params.id }, { orders: true })
+        .populate("orders", "ID price restaurant buyer orderedAt status")
+
+    if (state != null) {
+        orders = orders.filter((elem) => {
+            return elem.status === state;
+        })
+    }
+    response.status(200).json(orders);
+});
 
 module.exports = router;
