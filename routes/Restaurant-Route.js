@@ -126,7 +126,7 @@ router.get('/:id/orders', async (request, response) => {
     //?status=pending
     let state = null;
     try {
-        state = request.query.status;
+        state = request.query.status.toLowerCase();
     } catch (error) {
         console.log(error.message);
     }

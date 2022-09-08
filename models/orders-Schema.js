@@ -4,7 +4,7 @@ const orderSchema = mongoose.Schema({
     ID: {
         type: String,
         default: `OrderID${Math.random().toString(36).substring(2, 13) }`,
-        required: true,
+        required:true,
     },
     desc: {
         type: String,
@@ -21,6 +21,7 @@ const orderSchema = mongoose.Schema({
     buyer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required:true,
     },
     orderedAt: {
         type: Date,
@@ -30,9 +31,6 @@ const orderSchema = mongoose.Schema({
         type: String,
         default: "pending",
         required: true,
-    },
-    imageUrl: {
-        type: String
     }
 });
 
