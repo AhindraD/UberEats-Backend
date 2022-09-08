@@ -132,7 +132,7 @@ router.get('/:id/orders', async (request, response) => {
     }
     let ordersObj = await RestaurantModel.find({ _id: request.params.id }, { orders: true })
         .populate("orders", "ID price buyer orderedAt status")
-        .populate("name","name")
+        .populate("name", "name")
 
     if (state != null) {
         ordersObj[0].orders = ordersObj[0].orders.filter((elem) => {
@@ -140,6 +140,31 @@ router.get('/:id/orders', async (request, response) => {
         })
     }
     response.status(200).json(ordersObj);
+});
+
+
+//SHOW REVENUE by filter Dates
+router.get('/:id/revenue', async (request, response) => {
+    //?start_date=2022-09-08
+
+    let revenueObj = await RestaurantModel.find({ _id: request.params.id }, { revenue: true })
+        .populate("revenue", "date price")
+        .populate("name", "name")
+
+    try {
+        let startDate = request.query.start_date;
+        startDate = new Date(startDate).getTime();
+        if (startDate != null) {
+            revenueObj[0].revenue = revenueObj[0].revenue.filter((elem) => {
+                let currDate = new Date(elem.date).getTime();
+                return currDate >= startDate;
+            })
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+
+    response.status(200).json(revenueObj);
 });
 
 module.exports = router;

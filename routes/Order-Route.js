@@ -56,7 +56,8 @@ router.post('/add', async (request, response) => {
                 "revenue": {
                     date: new Date().toISOString().split('T')[0],
                     price: price,
-                }
+                },
+                "buyer": buyerID
             }
         });
         await UserModel.updateOne({ _id: buyerID }, {
