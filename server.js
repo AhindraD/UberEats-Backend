@@ -25,7 +25,7 @@ const app = express();
 //MIddleWare usage
 app.use(cors());
 app.use(express.static("public"));
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json({}));
 app.use(morgan("dev"));
 
@@ -33,8 +33,8 @@ app.use(morgan("dev"));
 app.use('/auth', authRouter);
 
 //adding custom middleWare
-app.use('/categories', authenticateRequest, categoriesRouter);
-app.use('/ads', authenticateRequest, adsRouter);
+app.use('/restaurants', authenticateRequest, categoriesRouter);
+app.use('/orders', authenticateRequest, adsRouter);
 
 
 app.listen(process.env.PORT || 8000)

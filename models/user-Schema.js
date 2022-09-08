@@ -13,13 +13,16 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    ads: [{
+    orders: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ad',
+        ref: "Order",
     }],
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    imageUrl: {
+        type: String
     }
 });
 

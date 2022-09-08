@@ -1,6 +1,6 @@
 const express = require('express');
 const AdModel = require('../models/ad');
-const UserModel = require('../models/user');
+const UserModel = require('../models/user-Schema');
 const jwt = require('jsonwebtoken');
 const multer = require("multer");
 const router = express.Router();
