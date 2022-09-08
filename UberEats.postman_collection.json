@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "237f2a46-b359-4b82-b29a-360f156f7ec8",
+		"name": "UberEats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22888526"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Ahindra\",\r\n    \"email\":\"ahindra@mail.com\",\r\n    \"password\":\"passcode123\",\r\n    \"confirmPassword\":\"passcode123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmRmYzJmMzhlN2RmM2Q4MDc1ZWE2NyIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MTE1NzkxN30.9FqjDuESMX3KSv3B3gS8sQuf7-LcFs6gD0xiUz8Is3o",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ahindra@mail.com\",\r\n    \"password\": \"passcode123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GenerateAccessToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYzMjU4MjA0fQ.kBoWLHgpoBGDwY2dZqhgKghQ2HIu4OlJ1KL0HHaZEeM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Show-All-Rests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/restaurants/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show-One-Rest",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/restaurants/6319b49f2548ba40142c500e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"6319b49f2548ba40142c500e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show-Revenue-Rest",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/restaurants/6319b49f2548ba40142c500e/revenue?start_date=2022-09-08",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"6319b49f2548ba40142c500e",
+								"revenue"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2022-09-08"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show-Orders-byFilter",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/restaurants/6319b49f2548ba40142c500e/orders?status=completed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"6319b49f2548ba40142c500e",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add-Dish",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Chicken Biriyani\", \r\n    \"desc\":\"Classic Mughal Preparation\", \r\n    \"price\":309\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/restaurants/6319b49f2548ba40142c500e/add-dish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"6319b49f2548ba40142c500e",
+								"add-dish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addRestaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Biriyani Inc.\", \r\n    \"cuisine\":\"Mughal\", \r\n    \"address\":\"Kolkata,WB,INDIA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/restaurants/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Restaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/restaurants/delete/6319b3da2548ba40142c5005",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants",
+								"delete",
+								"6319b3da2548ba40142c5005"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Show-Order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/orders/6319ba8b4a08cd12af39fd8b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								"6319ba8b4a08cd12af39fd8b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add-Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"buyerID\":\"6319b15c2548ba40142c5001\", \r\n    \"restaurantID\":\"6319b49f2548ba40142c500e\", \r\n    \"dishId\":\"6319b6f32548ba40142c501b\", \r\n    \"qnty\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/orders/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTliMTVjMjU0OGJhNDAxNDJjNTAwMSIsImVtYWlsIjoiYWhpbmRyYUBtYWlsLmNvbSIsImlhdCI6MTY2MjYyODIwNCwiZXhwIjoxNjYyNzE0NjA0fQ.YraXrPF1s9cSX0XUkMR_rkyjxmuLnf0In7nERnwFXug",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/orders/6319ba8b4a08cd12af39fd8b/update?status=completed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"orders",
+								"6319ba8b4a08cd12af39fd8b",
+								"update"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
