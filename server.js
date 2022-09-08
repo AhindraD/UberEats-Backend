@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors')
 const morgan = require('morgan')
 
-const DB_URL = "mongodb+srv://exam:exam619@cluster0.ksdmlno.mongodb.net/?retryWrites=true&w=majority";
+const DB_URL = process.env.DB_URL;
 
 mongoose.connect(DB_URL, {
     useUnifiedTopology: true,
