@@ -1,6 +1,6 @@
 # Food Ordering App Backend
 ## Fetch URL: https://uber.up.railway.app/
-### Postman Collection JSON: https://github.com/AhindraD/UberEats-Backend/blob/master/UberEats.postman_collection.json
+### Postman Collection JSON (API testing purpose): https://github.com/AhindraD/UberEats-Backend/blob/master/UberEats.postman_collection.json
   <br>
 
 # Endpoints
