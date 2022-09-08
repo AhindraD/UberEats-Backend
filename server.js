@@ -17,8 +17,8 @@ mongoose.connect(DB_URL, {
 
 //All routes import
 const authRouter = require('./routes/auth');
-const categoriesRouter = require('./routes/Categories-Route');
-const adsRouter = require('./routes/Ads-Route');
+const restaurantRouter = require('./routes/Restaurant-Route');
+const orderRouter = require('./routes/Order-Route');
 
 const app = express();
 
@@ -33,8 +33,8 @@ app.use(morgan("dev"));
 app.use('/auth', authRouter);
 
 //adding custom middleWare
-app.use('/restaurants', authenticateRequest, categoriesRouter);
-app.use('/orders', authenticateRequest, adsRouter);
+app.use('/restaurants', authenticateRequest, restaurantRouter);
+app.use('/orders', authenticateRequest, orderRouter);
 
 
 app.listen(process.env.PORT || 8000)
